@@ -4,7 +4,7 @@ This python app was developed utilizing Python 3.13.7
 It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, allowing you to choose which model to use at startup.  This allows easy local model testing.
 
 #
-#  ---------- Install Procedure ----------
+#  Install Procedure 
 #
 0) On Windows or Linux - Install the NVIDIA CUDA drivers for your OS & hardware
    - https://developer.nvidia.com/downloads
