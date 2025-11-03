@@ -16,9 +16,9 @@ It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM 
   
 3) Open a cli to install local Ollama models
    - ollama list
-   #  May not return anything until models have been downloaded and installed.
-   #  Models are listed under the Ollama website / Search
-   - #  ollama pull <modelname>
+   - May not return anything until models have been downloaded and installed.
+   - Models are listed under the Ollama website / Search
+   - Example:  ollama pull <modelname>
    - ollama pull granite3.2:2b
 
 4) Install Python libraries
