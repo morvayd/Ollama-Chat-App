@@ -14,7 +14,7 @@ It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM 
    - Verify operation - Find ollama app in the toolbar of your OS.
    - Note:  For local operation only, within the Ollama app, click Settings, then Airplane Mode slider = On
   
-3) Open a cli to install Ollama models
+3) Open a cli to install local Ollama models
    - ollama list
    #  May not return anything until models have been downloaded and installed.
    #  Models are listed under the Ollama website / Search
