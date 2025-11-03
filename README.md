@@ -1,7 +1,7 @@
 # Ollama-Chat-App
 This python app was developed utilizing Python 3.13.7
   - Testing occurred on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
-It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, giving a choice of model to use at startup.  This allows easy local model testing.
+It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, giving a choice of model to use at startup.  Very easy local AI usage without uploads.
 
 #
 #  Install Procedure 
