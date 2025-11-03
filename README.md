@@ -42,7 +42,7 @@ It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM 
   - PythonLogAI folder - will contain a SQLite3 database file tracking the AI interactions.  The initial prompt, the reply, how long it took, and number of tokens utilized on the input and output side.
   - Token tracking allows a way to track money saved since the inference was local.  Compare against pricing on your favorite AI service.
 
-7) Issues, trouble, enhancements, please post here!!
+7) Issues, trouble, enhancements, please post within the repository issues.
 
 Thank you!
 
