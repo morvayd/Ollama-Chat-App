@@ -1,7 +1,6 @@
 # Ollama-Chat-App
 This python app was developed utilizing Python 3.13.7
-  - It has been tested on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
-  - 
+  - Testing occurred on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
 It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, allowing you to choose which model to use at startup.  This allows easy local model testing.
 
 #
@@ -21,6 +20,15 @@ It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM 
    #  Models are listed under the Ollama website / Search
    - #  ollama pull <modelname>
    - ollama pull granite3.2:2b
+
+4) Install Python libraries
+   - pip install ollama
+   - pip install platform
+   - pip install getpass
+   - pip install datetime
+   - pip install sqlite3
+   - pip install pandas
+   - pip install colorama
   
 4) Download both "GPU-ollama-chat.py" and "PythonLog.py" to a folder
 
