@@ -1,11 +1,10 @@
 # Ollama-Chat-App
 This python app was developed utilizing Python 3.13.7
   - Testing occurred on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
-It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, giving a choice of model to use at startup.  Very easy local AI usage without uploads.
+It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, giving a choice of model to use at startup.  Very easy local AI usage without uploads.  Additionally personalities with thinking were incorporated.  These include the usual helpful assistant, the always ready butler Jeeves and Pirate captain RedEye!  Thinking can be turned on or off where the AI will report thought processes before answering.  
 
-#
 #  Install Procedure 
-#
+
 0) On Windows or Linux - Install the NVIDIA CUDA drivers for your OS & hardware
    - https://developer.nvidia.com/downloads
 
