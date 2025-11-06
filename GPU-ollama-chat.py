@@ -20,18 +20,6 @@
 #  Mac - No need on Apple Silicon
 
 #
-#  ---------- Torch Install ----------
-#
-#  Fill out the matrix to install PyTorch - Windows or Linux or Mac
-#  firefox https://pytorch.org/get-started/locally/
-#  Note:  If installed cuda is higher than latest version, just use the
-#  latest PyTorch version.
-#  Example:  System Cuda=12.6, so use PyTorch Cuda 12.4
-#  pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-
-#  
-
-#
 #  ---------- Ollama Install ----------
 #
 
@@ -39,9 +27,9 @@
 
 #  pip install ollama
 #  Download & Install Ollama - https://ollama.com/download
-#  Run llama3.2:  https://ollama.com/library/llama3.2
 
 #  Run ollama
+#  ollama pull llama3.2
 #  ollama run llama3.2
 #  From within ollama
 #  /show info
@@ -58,9 +46,7 @@
 #  ---- or ----
 #  python Llama3.2.py
 
-#  Description:  AI system with 2 GPU support and Memory Tracking
-
-#  Ollama Model Win11 Location:  C:\Users\129220\.ollama
+#  Ollama Model Win11 Location:  C:\Users\<UserID>\.ollama
 
 #  List the modelfile
 #  ollama show llama2:latest --modelfile
@@ -73,14 +59,13 @@
 #  Ollama Modelfile info
 #  https://github.com/ollama/ollama/blob/main/docs/modelfile.md
 
-#  To build the new model using the new Modelfile.
+#  To build the new model using the new Modelfile with modifications based on the edited
+#  modelfile.
 #  ollama create choose-a-model-name -f <location of the file e.g. ./Modelfile>
 #  ollama create dantest:1 -f C:\R\PythonWorkArea\Ollama\danllm.modelfile
 
 #  Now run the new model
-#  ollama run choose-a-model-name
-
-
+#  ollama run <choose-the-new-name>
 
 #
 #  ---------- Python ---------- 
@@ -106,14 +91,13 @@ from colorama import Fore
 from colorama import Style
 
 #  ----- Custom Libraries -----
-
 import PythonLog
 
 #
 #  ---------- Setup ----------
 #
 strPythonScript = "GPU-ollama-chat.py"
-strModified = "2025.10.30"
+strModified = "2025.11.05"
 
 #  Python Version
 strPyVer = platform.python_version()
@@ -347,27 +331,27 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
         #  Reference:  https://ollama.com/gabegoodhart/granite3.2-preview:8b/blobs/f7e156ba65ab
 
         if (strThink=="No" and strPirate=="No" and strJeeves=="No"):
-            strRequest = "Your role is that of a helpful assistant AI named Granite, created by IBM.  User Request:\n"+strQuestion
+            strRequest = "Your role is that of a helpful assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="Yes" and strPirate=="No" and strJeeves=="No"):
-            strRequest = "Your role is that of a helpful assistant AI named Granite, created by IBM.\nRespond to every user query in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user query.  User Query: "+strQuestion
+            strRequest = "Your role is that of a helpful assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="No" and strPirate=="Yes"):
-            strRequest = "You are a ruthless pirate named Captain RedEye and only speak gruff pirate language with a heavy accent at all times!\n User Question: "+strQuestion
+            strRequest = "You are a ruthless pirate AI named Captain RedEye and only speak gruff pirate language with a heavy accent at all times!  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\n User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="Yes" and strPirate=="Yes"):
-            strRequest = "You are a ruthless pirate named Captain RedEye and only speak gruff pirate language with a heavy accent at all times!\nRespond to every user query in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user query.  User Query: "+strQuestion
+            strRequest = "You are a ruthless pirate AI named Captain RedEye and only speak gruff pirate language with a heavy accent at all times!  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="No" and strPirate=="No" and strJeeves=="Yes"):
-            strRequest = "Your role is Jeeves, my faithful manservant.  User Request:\n"+strQuestion
+            strRequest = "Your role is Jeeves, a faithful AI servant.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="Yes" and strPirate=="No" and strJeeves=="Yes"):
-            strRequest = "You role is Jeeves, my faithfulmanservant.\nRespond to every user query in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user query.  User Query: "+strQuestion
+            strRequest = "You role is Jeeves, a faithful AI servant.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         #  client = Client ( host = 'https://localhost:11434' )
