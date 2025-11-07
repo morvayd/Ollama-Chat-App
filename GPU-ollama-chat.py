@@ -190,6 +190,11 @@ strOllama = list(ollama.list())
 #  Model Name:  strOllama[0][1][0]['model']
 #  Return:  granite3.2:8B
 
+#  If no models downloaded / installed, end
+if (len(strOllama[0][1])==0):
+    print ("\n----- Error -----\nPlease use Ollama to download at least one LLM or SLM.\nCLI Example:  ollama pull granite3.2:2b")
+    sys.exit("\nExiting Now, no language models installed.")
+
 strOllamaModel = []
 for i in range(0, len(strOllama[0][1])):
     strOllamaModel.append(strOllama[0][1][i]['model'])
@@ -405,3 +410,4 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     else:
         #  print ("\nNothing input ... nothing to answer.")
         print ("\n")
+
