@@ -1,5 +1,5 @@
 # Ollama-Chat-App
-100% Local on-prem AI!  No cloud needed (execpt for the initial model downloading).  All remains local, no internet required for AI chat!
+100% Local on-prem AI!  No cloud needed (except for the initial model downloading).  All data remains local, no internet required for AI chat!  Secure!!
 
 This python app was developed utilizing Python 3.13.7
   - Testing occurred on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
