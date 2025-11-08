@@ -1,4 +1,6 @@
 # Ollama-Chat-App
+100% Local on-prem AI!  No cloud needed (execpt for the initial model downloading).  All remains local, no internet required for AI chat!
+
 This python app was developed utilizing Python 3.13.7
   - Testing occurred on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
 It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, giving a choice of model to use at startup.  Very easy local AI usage without uploads.  Additionally personalities with thinking were incorporated.  These include the usual helpful assistant, the always ready butler Jeeves and Pirate captain RedEye!  Special thinking can be turned on or off where the AI will report thought processes before answering.  
