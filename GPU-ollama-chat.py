@@ -3,75 +3,9 @@
 #  Creator Email:  morvayd@gmail.com
 
 #
-#  ---------- CLI Install ----------
-#
-
-#  python3.11
-
-#
-#  ---------- Cuda Install ----------
-#
-#  Download cuda installer - Windows or Linux
-#  firefox https://developer.nvidia.com/cuda-downloads
-#  Check the cuda version
-#  nvcc --version
-#  nvidia-smi => windows: powershell => nvidia-smi
-
-#  Mac - No need on Apple Silicon
-
-#
-#  ---------- Ollama Install ----------
-#
-
-#  CPU or GPU Based ollama - Adjusts based on availability
-
-#  pip install ollama
-#  Download & Install Ollama - https://ollama.com/download
-
-#  Run ollama
-#  ollama pull llama3.2
-#  ollama run llama3.2
-#  From within ollama
-#  /show info
-#  Model info appears
-#  Exit ollama server
-#  /exit
-
-#  Open new CLI
-#  nvidia-smi 
-#  Verify ollama is using the GPU
-
-#  Open new CLI
-#  Python
-#  ---- or ----
-#  python Llama3.2.py
-
-#  Ollama Model Win11 Location:  C:\Users\<UserID>\.ollama
-
-#  List the modelfile
-#  ollama show llama2:latest --modelfile
-#  ollama show granite3.2:2b --modelfile
-
-#  Copy the modelfile to create a customized version
-#  ollama show granite3.2:2b --modelfile > danllm.modelfile
-#  Saved to the folder the command was run in
-
-#  Ollama Modelfile info
-#  https://github.com/ollama/ollama/blob/main/docs/modelfile.md
-
-#  To build the new model using the new Modelfile with modifications based on the edited
-#  modelfile.
-#  ollama create choose-a-model-name -f <location of the file e.g. ./Modelfile>
-#  ollama create dantest:1 -f C:\R\PythonWorkArea\Ollama\danllm.modelfile
-
-#  Now run the new model
-#  ollama run <choose-the-new-name>
-
-#
 #  ---------- Python ---------- 
 #
 
-#  Python - Verify all is working.
 import ollama
 from ollama import chat
 from ollama import ChatResponse
@@ -97,7 +31,7 @@ import PythonLog
 #  ---------- Setup ----------
 #
 strPythonScript = "GPU-ollama-chat.py"
-strModified = "2025.11.05"
+strModified = "2025.11.08"
 
 #  Python Version
 strPyVer = platform.python_version()
@@ -147,70 +81,36 @@ strDBFile = strDBPath+"/"+strPC+"-AILog.db"
 if (os.path.exists(strDBPath)!=True):
     os.makedirs(strDBPath)
 
-#  Ollama Python Commands:  https://github.com/ollama/ollama-python
-#  ollama.list()
-#  ollama.show('granite3-dense')
-#  ollama.show('llama3.2')
-#  ollama.pull()
-#  ollama.rm()
-#  ollama binds to 127.0.0.1 on port 11434
+def OllamaModel():
+    #  Setup a model selector based on what has been downloaded.
+    strOllama = list(ollama.list())
 
-#  To verify the model being used - Ask:
-#  - What are you?
-#  - Are you connected to the internet?
-#  - Are you able to replace humans?
+    #  If no models downloaded / installed, end
+    if (len(strOllama[0][1])==0):
+        print ("\n----- Error -----\nPlease use Ollama to download at least one LLM or SLM.\nCLI Example:  ollama pull granite3.2:2b")
+        sys.exit("\nExiting Now, no language models installed.")
 
-#
-#  ---------- AI Running ----------
-#
+    strOllamaModel = []
+    for i in range(0, len(strOllama[0][1])):
+        strOllamaModel.append(strOllama[0][1][i]['model'])
 
-#  curl http://localhost:11434/api/generate -d '{"model": "llama3.2", "keep_alive": -1}'
-#  ollama list
-#  NAME                    ID              SIZE      MODIFIED
-#  granite-code:3b         becc94fe1876    2.0 GB    3 minutes ago
-#  granite-code:8b         36c3c3b9683b    4.6 GB    31 minutes ago
-#  llama2:7b               78e26419b446    3.8 GB    4 weeks ago
-#  granite3-guardian:8b    c8d7d5c76685    5.8 GB    6 weeks ago
-#  granite3-guardian:2b    ba81a177bd23    2.7 GB    6 weeks ago
-#  granite3.2-vision:2b    3be41a661804    2.4 GB    6 weeks ago
-#  qwen2.5:7b              845dbda0ea48    4.7 GB    8 weeks ago
-#  qwen2.5:1.5b            65ec06548149    986 MB    8 weeks ago
-#  granite3.2:8b           9bcb3335083f    4.9 GB    2 months ago
-#  granite3.2:2b           9d79a41f2f75    1.5 GB    2 months ago
-#  granite3-moe:1b         d84e1e38ee39    821 MB    2 months ago
+    print ("\n---------- LLM Selection ----------")
+    for i in range(0, len(strOllamaModel)):
+        print (f"{Fore.RED}"+str(i)+f"{Style.RESET_ALL}: "+strOllamaModel[i])
+    
+    strChoose = input("\nPlease select the model number you would like to use. ")
 
-#  Setup a model selector based on what has been downloaded.
-strOllama = list(ollama.list())
+    strModel = strOllamaModel[int(strChoose)]  
 
-#  List number of models:  len(strOllama[0][1])
-#  Return:  6
-#  List a single model:  strOllama[0][1][0]
-#  Return:
-#  Model(model='granite3.2:8B', modified_at=datetime.datetime(2025, 10, 30, 22, 24, 37, 209453, tzinfo=TzInfo(-14400)), digest='9bcb3335083f7eecc742d3916da858f66e6ba8dc450a233270f37ba2ecec6c79', size=4942877287, details=ModelDetails(parent_model='', format='gguf', family='granite', families=['granite'], parameter_size='8.2B', quantization_level='Q4_K_M'))
-#  Model Name:  strOllama[0][1][0]['model']
-#  Return:  granite3.2:8B
+    #  Pre-load the model
+    response: ChatResponse = chat(model=strModel, stream=False)
 
-#  If no models downloaded / installed, end
-if (len(strOllama[0][1])==0):
-    print ("\n----- Error -----\nPlease use Ollama to download at least one LLM or SLM.\nCLI Example:  ollama pull granite3.2:2b")
-    sys.exit("\nExiting Now, no language models installed.")
+    print ("\nModel: "+strModel+" loaded!")
 
-strOllamaModel = []
-for i in range(0, len(strOllama[0][1])):
-    strOllamaModel.append(strOllama[0][1][i]['model'])
+    return strModel
 
-print ("\n---------- LLM Selection ----------")
-for i in range(0, len(strOllamaModel)):
-    print (f"{Fore.RED}"+str(i)+f"{Style.RESET_ALL}: "+strOllamaModel[i])
-   
-strChoose = input("\nPlease select the model number you would like to use.")
-
-strModel = strOllamaModel[int(strChoose)]  
-
-#  strModel = 'granite3.2:8b'
-#  strModel = "granite3.2:2B"
-#  Pre-load the model
-response: ChatResponse = chat(model=strModel, stream=False)
+#  Choose the model to use
+strModel = OllamaModel()
 
 #  Setup the AI URL
 AIurl = Client(host="http://localhost:11434")
@@ -218,7 +118,7 @@ AIurl = Client(host="http://localhost:11434")
 #
 #  ---------- Python Log Update ----------
 # 
-strUpdate="\n\nModel: "+strModel+" pre-loaded."
+strUpdate="\n\nCompleted setup ... ready to chat!"
 PythonLog.PyLogUpdate(strUpdate, strLogOut)
 
 strQuestion = "Hello!"
@@ -229,27 +129,27 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
 
     #  Thinking on or off
     if (strThink=="No" and strPirate=="No" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}think, pirate, jeeves, quit, exit, end{Style.RESET_ALL}")
+        print (f"Commands: {Fore.GREEN}think, pirate, jeeves, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ....\n\n")
 
     if (strThink=="Yes" and strPirate=="No" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, quit, exit, end{Style.RESET_ALL}")
+        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
 
     if (strThink=="No" and strPirate=="Yes" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}think, pirateoff, jeeves, quit, exit, end{Style.RESET_ALL}")
+        print (f"Commands: {Fore.GREEN}think, pirateoff, jeeves, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
         
     if (strThink=="Yes" and strPirate=="Yes" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}thinkoff, pirateoff, jeeves, quit, exit, end{Style.RESET_ALL}")
+        print (f"Commands: {Fore.GREEN}thinkoff, pirateoff, jeeves, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
 
     if (strThink=="No" and strPirate=="No" and strJeeves=="Yes"):
-        print (f"Commands: {Fore.GREEN}think, pirate, jeevesoff, quit, exit, end{Style.RESET_ALL}")
+        print (f"Commands: {Fore.GREEN}think, pirate, jeevesoff, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
         
     if (strThink=="Yes" and strPirate=="No" and strJeeves=="Yes"):
-        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeevesoff, quit, exit, end{Style.RESET_ALL}")
+        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeevesoff, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
         
     #
@@ -290,9 +190,12 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
         print ("\nJeeves personality turned off ...")
         strQuestion = ""
 
-    strStartSubmit = datetime.datetime.today()
+    if (strQuestion=="model"):
+        strModel = OllamaModel()
+        strQuestion = ""
 
     if (strQuestion!=""):
+        strStartSubmit = datetime.datetime.today()
 
         if (strQuestion=="quit" or strQuestion=="Quit" or strQuestion=="exit" or strQuestion=="Exit" or strQuestion=="end" or strQuestion=="End"):
             #  App ending
@@ -410,4 +313,3 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     else:
         #  print ("\nNothing input ... nothing to answer.")
         print ("\n")
-
