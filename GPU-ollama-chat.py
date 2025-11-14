@@ -18,6 +18,7 @@ import os
 import datetime
 import sqlite3
 import pandas
+import random
 
 #  Color the output to the cli
 from colorama import init as colorama_init
@@ -31,7 +32,7 @@ import PythonLog
 #  ---------- Setup ----------
 #
 strPythonScript = "GPU-ollama-chat.py"
-strModified = "2025.11.08"
+strModified = "2025.11.14"
 
 #  Python Version
 strPyVer = platform.python_version()
@@ -54,6 +55,8 @@ strThink = "No"
 strPirate = "No"
 #  Jeeves personality [ "Yes" | "No" ]
 strJeeves = "No"
+#  Mystic personality [ "Yes" | "No" ]
+strMystic = "No"
 
 strLogPath = ""
 strLogOut = ""
@@ -100,7 +103,15 @@ def OllamaModel():
     
     strChoose = input("\nPlease select the model number you would like to use. ")
 
-    strModel = strOllamaModel[int(strChoose)]  
+    if (strChoose.isdigit()):
+        if (int(strChoose) <= len(strOllamaModel)):
+            strModel = strOllamaModel[int(strChoose)]  
+        else:
+            print (f"{Fore.RED}\nError: A number in this menu was not selected!\nChoosing a random model for you.{Style.RESET_ALL}")
+            strModel = strOllamaModel[random.randrange(0, len(strOllamaModel))]
+    else:
+        print (f"{Fore.RED}\nError: A number in this menu was not selected!\nChoosing a random model for you.{Style.RESET_ALL}")
+        strModel = strOllamaModel[random.randrange(0, len(strOllamaModel))]
 
     #  Pre-load the model
     response: ChatResponse = chat(model=strModel, stream=False)
@@ -128,30 +139,39 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     print ("\n-------------------------------------------------------------------")
 
     #  Thinking on or off
-    if (strThink=="No" and strPirate=="No" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}think, pirate, jeeves, model, quit, exit, end{Style.RESET_ALL}")
+    if (strThink=="No" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
+        print (f"Commands: {Fore.GREEN}think, pirate, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ....\n\n")
 
-    if (strThink=="Yes" and strPirate=="No" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, model, quit, exit, end{Style.RESET_ALL}")
+    if (strThink=="Yes" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
+        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
 
-    if (strThink=="No" and strPirate=="Yes" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}think, pirateoff, jeeves, model, quit, exit, end{Style.RESET_ALL}")
+    if (strThink=="No" and strPirate=="Yes"):
+        print (f"Commands: {Fore.GREEN}think, pirateoff, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
         
-    if (strThink=="Yes" and strPirate=="Yes" and strJeeves=="No"):
-        print (f"Commands: {Fore.GREEN}thinkoff, pirateoff, jeeves, model, quit, exit, end{Style.RESET_ALL}")
+    if (strThink=="Yes" and strPirate=="Yes"):
+        print (f"Commands: {Fore.GREEN}thinkoff, pirateoff, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
 
-    if (strThink=="No" and strPirate=="No" and strJeeves=="Yes"):
-        print (f"Commands: {Fore.GREEN}think, pirate, jeevesoff, model, quit, exit, end{Style.RESET_ALL}")
+    if (strThink=="No" and strJeeves=="Yes"):
+        print (f"Commands: {Fore.GREEN}think, pirate, jeevesoff, mystic, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
         
-    if (strThink=="Yes" and strPirate=="No" and strJeeves=="Yes"):
-        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeevesoff, model, quit, exit, end{Style.RESET_ALL}")
+    if (strThink=="Yes" and strJeeves=="Yes"):
+        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeevesoff, mystic, model, quit, exit, end{Style.RESET_ALL}")
+        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+
+    if (strThink=="No" and strMystic=="Yes"):
+        print (f"Commands: {Fore.GREEN}think, pirate, jeeves, mysticoff, model, quit, exit, end{Style.RESET_ALL}")
         strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
         
+    if (strThink=="Yes" and strMystic=="Yes"):
+        print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, mysticoff, model, quit, exit, end{Style.RESET_ALL}")
+        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+
+
     #
     #  ---------- Evaluate the Input ----------
     #
@@ -169,25 +189,43 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     if (strQuestion=="pirate"):
         strPirate = "Yes"
         strJeeves = "No"
+        strMystic = "No"
         print ("\nPirate personality turned on ...")
         strQuestion = ""
 
     if (strQuestion=="pirateoff"):
         strPirate = "No"
         strJeeves = "No"
+        strMystic = "No"
         print ("\nPirate personality turned off ...")
         strQuestion = ""
 
     if (strQuestion=="jeeves" or strQuestion=="Jeeves"):
         strPirate = "No"
         strJeeves = "Yes"
+        strMystic = "No"
         print ("\nJeeves personality turned on ...")
         strQuestion = ""
 
     if (strQuestion=="jeevesoff"):
         strPirate = "No"
         strJeeves = "No"
+        strMystic = "No"
         print ("\nJeeves personality turned off ...")
+        strQuestion = ""
+
+    if (strQuestion=="mystic" or strQuestion=="Mystic"):
+        strPirate = "No"
+        strJeeves = "No"
+        strMystic = "Yes"
+        print ("\nMystic personality turned on ...")
+        strQuestion = ""
+
+    if (strQuestion=="mysticoff"):
+        strPirate = "No"
+        strJeeves = "No"
+        strMystic = "No"
+        print ("\nMystic personality turned off ...")
         strQuestion = ""
 
     if (strQuestion=="model"):
@@ -238,11 +276,11 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
 
         #  Reference:  https://ollama.com/gabegoodhart/granite3.2-preview:8b/blobs/f7e156ba65ab
 
-        if (strThink=="No" and strPirate=="No" and strJeeves=="No"):
+        if (strThink=="No" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
             strRequest = "Your role is that of a helpful assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
-        if (strThink=="Yes" and strPirate=="No" and strJeeves=="No"):
+        if (strThink=="Yes" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
             strRequest = "Your role is that of a helpful assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
@@ -254,12 +292,20 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
             strRequest = "You are a ruthless pirate AI named Captain RedEye and only speak gruff pirate language with a heavy accent at all times!  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
-        if (strThink=="No" and strPirate=="No" and strJeeves=="Yes"):
+        if (strThink=="No" and strJeeves=="Yes"):
             strRequest = "Your role is Jeeves, a faithful AI servant.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
-        if (strThink=="Yes" and strPirate=="No" and strJeeves=="Yes"):
+        if (strThink=="Yes" and strJeeves=="Yes"):
             strRequest = "You role is Jeeves, a faithful AI servant.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
+            dictToSend = [ {"role": "user", "content": strRequest} ]
+
+        if (strThink=="No" and strMystic=="Yes"):
+            strRequest = "Your role is that of a great mystic AI named SageBrush, seated on the mountain top.  You ponder the imponderable questioning the universe.  You only reply using mystic language.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
+            dictToSend = [ {"role": "user", "content": strRequest} ]
+
+        if (strThink=="Yes" and strMystic=="Yes"):
+            strRequest = "Your role is that of a great mystic AI named SageBrush, seated on the mountain top.  You ponder the imponderable questioning the universe.  You only reply using mystic language.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         #  client = Client ( host = 'https://localhost:11434' )
