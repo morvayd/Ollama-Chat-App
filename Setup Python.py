@@ -1,6 +1,7 @@
 #  Reference:  https://github.com/ollama/ollama-python
 #  Author:  Daniel Morvay
 #  Creator Email:  morvayd@gmail.com
+#  strModified = "2025.11.22"
 
 #
 #  ---------- Python ---------- 
@@ -55,3 +56,4 @@ strOllama[0][1][0]
 #  Model Name:
 strOllama[0][1][0]['model']
 #  Return:  granite3.2:8B
+
