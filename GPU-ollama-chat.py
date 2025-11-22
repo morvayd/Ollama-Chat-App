@@ -3,27 +3,27 @@
 #  Creator Email:  morvayd@gmail.com
 
 #
-#  ---------- Python ---------- 
+#  ---------- Install ----------
 #
 
+#  ----- Base Libraries -----
+import datetime
+import getpass
+import os
+import platform
+import random
+import sys
+
+#  ----- Additional Libraries -----
+from colorama import init as colorama_init
+from colorama import Fore
+from colorama import Style
 import ollama
 from ollama import chat
 from ollama import ChatResponse
 from ollama import Client
-
-import platform
-import getpass
-import sys
-import os
-import datetime
-import sqlite3
 import pandas
-import random
-
-#  Color the output to the cli
-from colorama import init as colorama_init
-from colorama import Fore
-from colorama import Style
+import sqlite3
 
 #  ----- Custom Libraries -----
 import PythonLog
@@ -32,7 +32,7 @@ import PythonLog
 #  ---------- Setup ----------
 #
 strPythonScript = "GPU-ollama-chat.py"
-strModified = "2025.11.14"
+strModified = "2025.11.22"
 
 #  Python Version
 strPyVer = platform.python_version()
@@ -359,3 +359,4 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     else:
         #  print ("\nNothing input ... nothing to answer.")
         print ("\n")
+
