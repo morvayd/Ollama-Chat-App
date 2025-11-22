@@ -23,13 +23,10 @@ It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM 
    - ollama pull granite3.2:2b
 
 4) Install Python libraries
-   - pip install ollama
-   - pip install platform
-   - pip install getpass
-   - pip install datetime
-   - pip install sqlite3
-   - pip install pandas
    - pip install colorama
+   - pip install ollama
+   - pip install pandas
+   - pip install sqlite3
   
 4) Download both "GPU-ollama-chat.py" and "PythonLog.py" to a folder
 
