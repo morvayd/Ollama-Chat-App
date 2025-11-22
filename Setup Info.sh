@@ -5,7 +5,11 @@
 #  ---------- CLI Install ----------
 #
 
-#  python3.11
+#  From the system Command Line Interface (CLI)
+pip install colorama
+pip install ollama
+pip install pandas
+pip install sqlite3
 
 #
 #  ---------- Cuda Install ----------
@@ -70,10 +74,9 @@ ollama run dantest:1
 #  ---------- Ollama with Python ----------
 #
 
-#  Using ollama within Python
-pip install ollama
+#  Note:  
+#  PythonLog.py - keep in the same folder as Python-Library-Locate.py
+#  This will create a PythonLogs folder and save app logs there.  
 
-#  Open new CLI
-python3
-#  ---- or ----
+#  Run the app
 python3 GPU-ollama-chat.py
