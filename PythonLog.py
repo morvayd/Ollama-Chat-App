@@ -1,7 +1,8 @@
+
 print ("\nCustom Library Loaded - PythonLog")
 
 #  strPythonScript = "PythonLog.py"
-#  strModified = "2025.11.03"
+#  strModified = "2025.11.21"
 #  Author:  Daniel Morvay
 #  Email:   mwwdata@outlook.com
 
@@ -23,13 +24,32 @@ import PythonLog
 #  Note:  strLogPath, strLogOut are created & returned at the start of Logging
 strReturn = PythonLog.PyLogStart(strPythonScript, strModified, strPyVer, strOS, strOSVer, strPC, strUser, strStartTime, strDateNow)
 
+#  Load the Path and Filename from the function return
+strLogPath = strReturn[0]
+strLogOut = strReturn[1]
+
 #
 #  ---------- Python Log Update ----------
 #
-strUpdate = "==> Loaded text"
+strUpdate = "\n"+str(datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S"))+" Update item goes here"
 strUpdate = strUpdate+"\nUpdate Line 1: "
 strUpdate = strUpdate+"\nUpdate Line 2: "
 PythonLog.PyLogUpdate(strUpdate, strLogOut)
+
+#
+#  ---------- Python Log End ----------
+#
+strEndTime = datetime.datetime.today()
+strTimeDelta = strEndTime-strStartTime
+strTimeDelta = str(strTimeDelta.total_seconds())
+
+strUpdate="\n\n-----------------------------------------------------------"
+strUpdate=strUpdate+"\nPython Script End:          "+str(strEndTime)
+strUpdate=strUpdate+"\n-----------------------------------------------------------"
+strUpdate=strUpdate+"\nCompleted Python Script Elapsed Time: "+str(strTimeDelta)
+strUpdate=strUpdate+"\n***********************************************************\n"
+
+PythonLog.PyLogEnd(strUpdate, strLogOut)
 
 '''
 
