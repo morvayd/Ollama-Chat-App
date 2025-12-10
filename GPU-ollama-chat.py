@@ -32,7 +32,7 @@ import PythonLog
 #  ---------- Setup ----------
 #
 strPythonScript = "GPU-ollama-chat.py"
-strModified = "2025.11.22"
+strModified = "2025.12.10"
 
 #  Python Version
 strPyVer = platform.python_version()
@@ -62,7 +62,10 @@ strLogPath = ""
 strLogOut = ""
 
 #  Initialize Text Colors
-colorama_init()
+colorama_init(autoreset=True)
+#  Colorama colors:  black, blue, cyan, green, magenta, red, reset, white, yellow
+#  lightblack_ex, lightblue_ex, lightcyan_ex, lightgreen_ex, lightmagenta_ex, 
+#  lightred_ex, lightwhite_ex, lightyellow_ex
 
 #
 #  ---------- Python Log Start ----------
@@ -124,7 +127,7 @@ def OllamaModel():
 strModel = OllamaModel()
 
 #  Setup the AI URL
-AIurl = Client(host="http://localhost:11434")
+AIurl = Client(host="http://localhost:11434", timeout=300)
 
 #
 #  ---------- Python Log Update ----------
@@ -141,35 +144,35 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     #  Thinking on or off
     if (strThink=="No" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
         print (f"Commands: {Fore.GREEN}think, pirate, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ....\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ....\n\n"+Fore.YELLOW)
 
     if (strThink=="Yes" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
         print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
 
     if (strThink=="No" and strPirate=="Yes"):
         print (f"Commands: {Fore.GREEN}think, pirateoff, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
         
     if (strThink=="Yes" and strPirate=="Yes"):
         print (f"Commands: {Fore.GREEN}thinkoff, pirateoff, jeeves, mystic, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
 
     if (strThink=="No" and strJeeves=="Yes"):
         print (f"Commands: {Fore.GREEN}think, pirate, jeevesoff, mystic, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
         
     if (strThink=="Yes" and strJeeves=="Yes"):
         print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeevesoff, mystic, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
 
     if (strThink=="No" and strMystic=="Yes"):
         print (f"Commands: {Fore.GREEN}think, pirate, jeeves, mysticoff, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
         
     if (strThink=="Yes" and strMystic=="Yes"):
         print (f"Commands: {Fore.GREEN}thinkoff, pirate, jeeves, mysticoff, model, quit, exit, end{Style.RESET_ALL}")
-        strQuestion = input(f"{Fore.LIGHTBLUE_EX}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n")
+        strQuestion = input(f"{Fore.YELLOW}"+strPC+f"{Style.RESET_ALL} AI at your service ...\n\n"+Fore.YELLOW)
 
 
     #
@@ -311,11 +314,11 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
         #  client = Client ( host = 'https://localhost:11434' )
         stream = AIurl.chat(model=strModel, messages=dictToSend, stream=True)
 
-        print ("\nAnswer:")
+        print (f"{Style.RESET_ALL}\nAnswer:")
         strAnswer = ""
         for chunk in stream:
             strAnswer = strAnswer+chunk['message']['content']
-            print (f"{Fore.BLUE}"+chunk['message']['content']+f"{Style.RESET_ALL}", end='', flush=True)
+            print (f"{Fore.GREEN}"+chunk['message']['content']+f"{Style.RESET_ALL}", end='', flush=True)
 
         strEndSubmit = datetime.datetime.today()
         strTimeDelta = strEndSubmit - strStartSubmit
@@ -359,4 +362,3 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
     else:
         #  print ("\nNothing input ... nothing to answer.")
         print ("\n")
-
