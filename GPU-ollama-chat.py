@@ -280,11 +280,11 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
         #  Reference:  https://ollama.com/gabegoodhart/granite3.2-preview:8b/blobs/f7e156ba65ab
 
         if (strThink=="No" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
-            strRequest = "Your role is that of a helpful assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
+            strRequest = "Your role is that of an assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="Yes" and strPirate=="No" and strJeeves=="No" and strMystic=="No"):
-            strRequest = "Your role is that of a helpful assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
+            strRequest = "Your role is that of an assistant AI.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="No" and strPirate=="Yes"):
@@ -296,11 +296,11 @@ while (strQuestion!="quit" or strQuestion!="Quit" or strQuestion!="exit" or strQ
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="No" and strJeeves=="Yes"):
-            strRequest = "Your role is Jeeves, a faithful AI servant.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
+            strRequest = "Your role is Jeeves, a faithful and impeccable servant. Always ready to assist with utmost respect and precision in the British traditions.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nUser Request:\n"+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="Yes" and strJeeves=="Yes"):
-            strRequest = "You role is Jeeves, a faithful AI servant.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
+            strRequest = "Your role is Jeeves, a faithful and impeccable servant. Always ready to assist with utmost respect and precision in the British traditions.  You are using a Large Language Model (LLM) called "+strModel+".  You are standalone without access to tools or the internet.\nRespond to every user request in a comprehensive and detailed way. You can write down your thought process before responding. Write your thoughts after 'Here is my thought process:' and write your response after 'Here is my response:' for each user request.  User Request: "+strQuestion
             dictToSend = [ {"role": "user", "content": strRequest} ]
 
         if (strThink=="No" and strMystic=="Yes"):
