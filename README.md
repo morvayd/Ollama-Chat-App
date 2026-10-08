@@ -1,47 +1,69 @@
-# Ollama-Chat-App
-100% Local on-prem AI!  No cloud needed (except for the initial model downloading).  All data remains local, no internet required for AI chat!  Secure!!
+# GPU-Ollama-Chat
 
-This python app was developed utilizing Python 3.13.7
-  - Testing occurred on Windows 11, MacOS 15.3.1 and Linux Mint 22.04.
-It utilizes a local Ollama server, chats locally with any downloaded Ollama LLM &amp; SLM, giving a choice of model to use at startup.  Very easy local AI usage without uploads.  Additionally personalities with thinking were incorporated.  These include the usual helpful assistant, the always ready butler Jeeves and Pirate captain RedEye!  Special thinking can be turned on or off where the AI will report thought processes before answering.  
+A powerful, terminal-based Python application that allows you to interact with local Large Language Models (LLMs) via [Ollama](https://ollama.com/). Experience the power of local AI with customizable personalities and detailed interaction logging.
 
-#  Install Procedure 
+## 🚀 Key Features
 
-0) On Windows or Linux - Install the NVIDIA CUDA drivers for your OS & hardware
-   - https://developer.nvidia.com/downloads
+### 🏠 Fully Local AI
+Powered by **Ollama**, this application ensures that your conversations stay on your machine. No data ever leaves your hardware, providing ultimate privacy and speed.
 
-2) Install Ollama server
-   - https://ollama.com/ => Download
-   - Verify operation - Find ollama app in the toolbar of your OS.
-   - Note:  For local operation only, within the Ollama app, click Settings, then Airplane Mode slider = On
-  
-3) Open a cli to install local Ollama models
-   - ollama list
-   - May not return anything until models have been downloaded and installed.
-   - Models are listed under the Ollama website / Search
-   - Example:  ollama pull <modelname>
-   - ollama pull granite3.2:2b
+### 🎭 Immersive Personalities
+Transform your AI interaction with four distinct personas. You can switch between them to change the tone and style of the response:
 
-4) Install Python libraries
-   - pip install colorama
-   - pip install ollama
-   - pip install pandas
-   - pip install sqlite3
-  
-4) Download both "GPU-ollama-chat.py" and "PythonLog.py" to a folder
+*   **Jeeves**: Your faithful and impeccable servant. Always ready to assist with utmost respect and precision.
+*   **SageBrush**: The Mystic Sage of the mountain top. Ponders the imponderable, responding with cryptic and mystical language.
+*   **Captain RedEye**: A ruthless and salty pirate. Expect aggressive, bold, and high-seas-inspired responses.
+*   **The Dull Assistant**: The definition of boring. Provides the most basic, uninspired, and monotonous responses possible.
 
-5) Within the CLI, navigate to the folder where your downloads exist.
+### 📊 Advanced AI Tracking
+Never lose a thought. The application automatically logs every interaction to a local SQLite database (`PythonLogAI/`), tracking:
+*   Question & Answer text
+*   Model used
+*   Tokens consumed (Input/Output)
+*   Time taken for response
+*   Word counts
 
-#  Run the app within Python
-6) python3 "GPU-ollama-chat.py"
-  - The app will initialize, prompt you to choose a model that you've downloaded using Ollama.
-  - Within this folder, the PythonLogs folder and the PythonLogAI folder will be created.
-  - PythonLogs folder - will contain a basic log of this apps' operation.
-  - PythonLogAI folder - will contain a SQLite3 database file tracking the AI interactions.  The initial prompt, the reply, how long it took, and number of tokens utilized on the input and output side.
-  - Token tracking allows a way to track money saved since the inference was local.  Compare against pricing on your favorite AI service.
+## 🛠️ Prerequisites
 
-7) Issues, trouble, enhancements, please post within the repository issues.
+Before running the application, ensure you have the following installed:
 
-Thank you!
+1.  **Ollama**: The core engine for running local LLMs. [Download here](https://ollama.com/).
+2.  **Python 3.x**: Ensure Python is installed and added to your system's PATH.
 
-D. Morvay
+## ⚙️ Installation
+
+1.  **Clone the repository** (if applicable).
+2.  **Install the required Python libraries** using pip:
+
+    ```bash
+    pip install colorama ollama pandas
+    ```
+
+3.  **Pull an LLM model** via Ollama (if you haven't already). For example, to use the Granite model:
+
+    ```bash
+    ollama pull granite3.2:2b
+    ```
+
+## 🚀 Usage
+
+Once everything is set up, simply run the script:
+
+```bash
+python GPU-ollama-chat.py
+```
+
+**Follow the interactive menu to:**
+1.  **Select your model**: Choose from any model currently installed in your Ollama library.
+2.  **Choose a personality**: Select the persona that fits your mood.
+3.  **Chat**: Start typing your questions!
+
+## 🛠️ Technical Details
+
+*   **Logging**: Uses a dedicated `PythonLog` module to track application performance and interaction metrics.
+*   **Database**: Data is stored locally in a SQLite database for lightweight and efficient retrieval.
+*   **Colors**: Uses `colorama` for a rich, readable terminal experience.
+
+---
+**Author:** Daniel Morvay
+**License:** MIT
